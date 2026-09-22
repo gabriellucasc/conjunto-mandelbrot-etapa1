@@ -16,7 +16,7 @@ DEFINICOES (as do professor, Aula 03)
   Speedup     S = T_seq / T_p                (T_seq = mediana do sequencial na mesma resolucao)
   Eficiencia  E = S / p
   F_LB        (Tmax - Tmin) / Tmax           (por thread; 0 = perfeito, 1 = pessimo)
-  Karp-Flatt  e = (1/S - 1/p) / (1 - 1/p)    (fracao serial EFETIVA; inclui overheads e hardware)
+  Fracao efetiva  e = (1/S - 1/p) / (1 - 1/p)    (estimativa dos limites do ganho observado)
 """
 
 from __future__ import annotations
@@ -277,7 +277,7 @@ def alfa_gustafson(w: pd.DataFrame) -> float:
 
 
 def f_efetivo(r: pd.DataFrame, caso: str, pol: str = "dynamic,1") -> float:
-    """Fracao serial EFETIVA (Karp-Flatt mediana) da politica de referencia."""
+    """Fracao efetiva mediana da politica de referencia."""
     d = r[(r["caso"] == caso) & (r["width"] == RES_BASE) & (r["pol"] == pol) & (r["threads"] >= 2)]
     return float(d["karp_flatt"].median())
 
@@ -328,7 +328,7 @@ def fig_strong(r, caso, metrica, salvar=True):
         ax.plot([1, pmax], [1, pmax], "k--", label="ideal (S = p)")
         f = f_efetivo(r, caso)
         ps = np.linspace(1, pmax, 100)
-        ax.plot(ps, amdahl(f, ps), ":", color="gray", lw=2, label=f"Amdahl, f = {100 * f:.1f}% (Karp–Flatt)")
+        ax.plot(ps, amdahl(f, ps), ":", color="gray", lw=2, label=f"Amdahl, f = {100 * f:.1f}%")
         ax.set_ylabel("Speedup")
     else:
         ax.axhline(100, color="k", ls="--", label="ideal (100%)")

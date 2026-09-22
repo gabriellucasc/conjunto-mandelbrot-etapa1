@@ -13,7 +13,7 @@ O projeto avalia diferentes números de threads, políticas de escalonamento e t
 ## Estrutura do projeto
 
 ```text
-Etapa 1/
+conjunto-mandelbrot-etapa1/
 ├── src/
 │   ├── mandelbrot_sequencial.c
 │   └── mandelbrot_openmp.c
@@ -53,7 +53,7 @@ Mais detalhes estão em `resultados/ambiente.md`.
 
 ## Como executar
 
-Os comandos devem ser executados a partir da pasta `Etapa 1`.
+Os comandos devem ser executados a partir da raiz do repositório `conjunto-mandelbrot-etapa1/`.
 
 ### Teste rápido
 
