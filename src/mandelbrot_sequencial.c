@@ -158,7 +158,7 @@ int calculaMandelbrot(double cr, double ci) {
 }
 
 // ---------------------------------------------------------------------------
-// PARTE ESPECIFICA DA VERSAO: unica regiao que difere entre os dois arquivos
+// NUCLEO DE CALCULO DA VERSAO
 // ---------------------------------------------------------------------------
 void mandelbrot(int** img2D, int nLin, int nCol, Metricas *m) {
     long long trabalho = 0;
@@ -286,7 +286,6 @@ void salvarMetricas(const Metricas *m, double tempoEscrita) {
         );
     }
 
-    // trabalho impresso como double (%.0f): evita depender de %lld no printf do MinGW
     fprintf(
         arquivo,
         "%s,%d,%s,%d,%d,%d,%d,"
@@ -321,8 +320,6 @@ void salvarMetricas(const Metricas *m, double tempoEscrita) {
     printf("Metricas salvas em %s\n", ARQ_CSV);
 }
 
-// Mesmo relogio nas duas versoes (as duas exigem -fopenmp; o sequencial continua
-// serial porque nao ha diretivas).
 double tempoAgora(void) {
     return omp_get_wtime();
 }

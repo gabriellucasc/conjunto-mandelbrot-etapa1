@@ -158,7 +158,7 @@ int calculaMandelbrot(double cr, double ci) {
 }
 
 // ---------------------------------------------------------------------------
-// PARTE ESPECIFICA DA VERSAO: unica regiao que difere entre os dois arquivos
+// NUCLEO DE CALCULO DA VERSAO
 // ---------------------------------------------------------------------------
 void mandelbrot(int** img2D, int nLin, int nCol, Metricas *m) {
     int maxThreads = omp_get_max_threads();
@@ -238,13 +238,11 @@ void mandelbrot(int** img2D, int nLin, int nCol, Metricas *m) {
     free(trabalhoThread);
 }
 
-// Schedule efetivo (definido por OMP_SCHEDULE por causa do schedule(runtime)).
-// Sem OMP_SCHEDULE o padrao do libgomp e dynamic,1 (nao static!).
+// Schedule efetivo definido por OMP_SCHEDULE devido ao schedule(runtime).
 void obterSchedule(const char **nome, int *chunk) {
     omp_sched_t kind;
     omp_get_schedule(&kind, chunk);
 
-    // GCC >= 9 pode devolver o bit "monotonic" (0x80000000) junto do tipo
     int tipo = (int)kind & 0x7FFFFFFF;
 
     *nome = "outro";
@@ -346,7 +344,6 @@ void salvarMetricas(const Metricas *m, double tempoEscrita) {
         );
     }
 
-    // trabalho impresso como double (%.0f): evita depender de %lld no printf do MinGW
     fprintf(
         arquivo,
         "%s,%d,%s,%d,%d,%d,%d,"
@@ -381,8 +378,6 @@ void salvarMetricas(const Metricas *m, double tempoEscrita) {
     printf("Metricas salvas em %s\n", ARQ_CSV);
 }
 
-// Mesmo relogio nas duas versoes (as duas exigem -fopenmp; o sequencial continua
-// serial porque nao ha diretivas).
 double tempoAgora(void) {
     return omp_get_wtime();
 }
