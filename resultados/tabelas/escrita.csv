@@ -1,0 +1,11 @@
+versao,width,escrita_mediana_s
+openmp,4096,0.041
+openmp,5793,0.087
+openmp,8192,0.187
+openmp,10033,0.296
+openmp,11585,0.364
+sequencial,4096,0.042
+sequencial,5793,0.09
+sequencial,8192,0.178
+sequencial,10033,0.275
+sequencial,11585,0.397
